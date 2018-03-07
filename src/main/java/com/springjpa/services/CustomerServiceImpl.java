@@ -12,7 +12,7 @@ import com.springjpa.exception.CustomerTransactionException;
 import com.springjpa.model.Customer;
 
 @Service("customerService")
-@Transactional
+@Transactional(rollbackFor = CustomerTransactionException.class)
 public class CustomerServiceImpl implements ICustomerService {
 	
 	private final static Logger logger = LoggerFactory.getLogger(CustomerServiceImpl.class);
@@ -27,18 +27,11 @@ public class CustomerServiceImpl implements ICustomerService {
 	}
 	
 	@Override
-	@Transactional(propagation = Propagation.REQUIRES_NEW,
-	rollbackFor = CustomerTransactionException.class)
-	public void creat(Customer customer) throws CustomerTransactionException{
-		try {
-			customerDao.creat(customer);
-			logger.info("creat Successfully !!!");
-			throw new CustomerTransactionException("qqq");
-		} catch (CustomerTransactionException e) {
-			logger.info("Exception !!!");
-			logger.error(e.getMessage());
-			e.printStackTrace();
+	public void creat(Customer customer) throws CustomerTransactionException {
+		if (customer.getPhone() == 5) {
+			throw new CustomerTransactionException("phone == 5");
 		}
+		customerDao.creat(customer);
 	}
 
 	@Override
