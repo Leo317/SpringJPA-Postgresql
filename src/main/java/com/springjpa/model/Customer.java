@@ -26,18 +26,6 @@ public class Customer implements Serializable {
 
 	@Column(name = "lastname")
 	private String lastName;
-	
-	@Column(name = "test")
-	private String test;
-
-
-	public String getTest() {
-		return test;
-	}
-
-	public void setTest(String test) {
-		this.test = test;
-	}
 
 	public Customer() {
 	}
