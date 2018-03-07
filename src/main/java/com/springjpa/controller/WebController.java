@@ -1,8 +1,12 @@
 package com.springjpa.controller;
 
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -25,6 +29,9 @@ public class WebController {
 	
 	@Autowired
     ICustomerService iCustomerServ;
+	
+	@Autowired
+    SessionFactory sessionFactory;
 	
 	@RequestMapping("/save")
 	public String process(){
@@ -61,7 +68,32 @@ public class WebController {
 	@DeleteMapping("/customers/{id}")
 	public String delete(@PathVariable Long id) {
 		
-		iCustomerServ.delete(id);
+		try {
+			iCustomerServ.delete(id);
+		} catch (CustomerTransactionException e) {
+			// TODO Auto-generated catch block
+			System.out.println("WebController");
+			e.DeleteTransactionException();
+			e.printStackTrace();
+		}
+		
+		
+		
+//		Session session = sessionFactory.openSession();
+//		Transaction tx = null;
+//		try {
+//		   tx = session.beginTransaction();
+//		   iCustomerServ.delete(id);
+//		   System.out.println("SUXXXXX");
+//		   tx.commit();
+//		}
+//		catch (Exception e) {
+//			System.out.println("EXXXXX");
+//		   if (tx!=null) tx.rollback();
+//		   e.printStackTrace(); 
+//		}finally {
+//		   session.close();
+//		}
 		
 		return "Delete Id = " + id;
 	}

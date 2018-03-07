@@ -26,6 +26,7 @@ public class CustomerDaoImpl implements ICustomerDao {
 	protected Session currentSession() {
 		return sessionFactory.getCurrentSession();
 	}
+
 	
 	@Override
 	public void initData(Customer customer) {
@@ -167,15 +168,24 @@ public class CustomerDaoImpl implements ICustomerDao {
 
 	@Override
 	public void delete(long id) {
-		Session session = sessionFactory.openSession();
-        session.beginTransaction();
-        
-        Customer result = new Customer();
-        result = (Customer)session.load(Customer.class,id);
-        session.delete(result);
-        
-        session.getTransaction().commit();
-        session.close();
+		Session session = sessionFactory.getCurrentSession();
+	      session.beginTransaction();
+	      
+	      Customer result = new Customer();
+	      result = (Customer)session.load(Customer.class,id);
+	      session.delete(result);
+		System.out.println("acsacasc");
+		System.out.println(sessionFactory.openSession());
+		System.out.println(sessionFactory.getCurrentSession());
+//		Session session = sessionFactory.openSession();
+//        session.beginTransaction();
+//        
+//        Customer result = new Customer();
+//        result = (Customer)session.load(Customer.class,id);
+//        session.delete(result);
+//        
+//        session.getTransaction().commit();
+//        session.close();
 	}
 	
 	@Override
