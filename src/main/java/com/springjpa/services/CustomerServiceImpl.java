@@ -1,18 +1,26 @@
 package com.springjpa.services;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.springjpa.dao.CustomerDaoImpl;
 import com.springjpa.model.Customer;
 
 @Service("customerService")
+@Transactional
 public class CustomerServiceImpl implements ICustomerService {
+	
+	private final static Logger logger = LoggerFactory.getLogger(CustomerServiceImpl.class);
+	
 	@Autowired
 	private CustomerDaoImpl customerDao;
-
+	
 	@Override
 	public void initData(Customer customer) {
+		logger.info("Init Data = " + customer);
 		customerDao.initData(customer);
 	}
 	

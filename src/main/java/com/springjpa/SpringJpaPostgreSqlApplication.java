@@ -1,9 +1,12 @@
 package com.springjpa;
 
+import org.hibernate.SessionFactory;
+import org.hibernate.jpa.HibernateEntityManagerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
 
 import com.springjpa.model.Customer;
 import com.springjpa.services.ICustomerService;
@@ -28,4 +31,8 @@ public class SpringJpaPostgreSqlApplication implements CommandLineRunner{
 		
 	}
 	
+	@Bean
+	public SessionFactory sessionFactory(HibernateEntityManagerFactory hemf){    
+	    return hemf.getSessionFactory();    
+	}
 }

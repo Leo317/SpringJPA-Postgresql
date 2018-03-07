@@ -23,11 +23,6 @@ public class CustomerDaoImpl implements ICustomerDao {
 	protected Session currentSession() {
 		return sessionFactory.getCurrentSession();
 	}
-
-	@Bean
-	public SessionFactory sessionFactory(HibernateEntityManagerFactory hemf){    
-	    return hemf.getSessionFactory();    
-	}
 	
 	@Override
 	public void initData(Customer customer) {
