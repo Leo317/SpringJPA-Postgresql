@@ -1,5 +1,7 @@
 package com.springjpa.controller;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,11 +13,16 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.springjpa.exception.CustomerTransactionException;
 import com.springjpa.model.Customer;
+import com.springjpa.services.CustomerServiceImpl;
 import com.springjpa.services.ICustomerService;
 
 @RestController
 public class WebController {
+	
+	private final static Logger logger = LoggerFactory.getLogger(CustomerServiceImpl.class);
+	
 	@Autowired
     ICustomerService iCustomerServ;
 	
@@ -34,7 +41,13 @@ public class WebController {
 	@PostMapping(value = "/creat")
 	public ResponseEntity creat(@RequestBody Customer customer){
 		
-		iCustomerServ.creat(customer);
+		try {
+			iCustomerServ.creat(customer);
+		} catch (CustomerTransactionException e) {
+			// TODO Auto-generated catch block
+			logger.info("Web Controller~~~");
+			e.printStackTrace();
+		}
         
 		return new ResponseEntity(customer, HttpStatus.OK);
 	}

@@ -43,12 +43,6 @@ public class SpringJpaPostgreSqlApplication implements CommandLineRunner{
 	    return hemf.getSessionFactory();    
 	}
 	
-	@Autowired
-    @Bean(name = "transactionManager")
-    public HibernateTransactionManager getTransactionManager(SessionFactory sessionFactory) {
-        HibernateTransactionManager transactionManager = new HibernateTransactionManager(sessionFactory);
- 
-        return transactionManager;
-    }
+
 	
 }

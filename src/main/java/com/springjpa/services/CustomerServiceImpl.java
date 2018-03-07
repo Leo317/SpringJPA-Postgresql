@@ -4,9 +4,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.springjpa.dao.CustomerDaoImpl;
+import com.springjpa.exception.CustomerTransactionException;
 import com.springjpa.model.Customer;
 
 @Service("customerService")
@@ -25,8 +27,18 @@ public class CustomerServiceImpl implements ICustomerService {
 	}
 	
 	@Override
-	public void creat(Customer customer) {
-		customerDao.creat(customer);
+	@Transactional(propagation = Propagation.REQUIRES_NEW,
+	rollbackFor = CustomerTransactionException.class)
+	public void creat(Customer customer) throws CustomerTransactionException{
+		try {
+			customerDao.creat(customer);
+			logger.info("creat Successfully !!!");
+			throw new CustomerTransactionException("qqq");
+		} catch (CustomerTransactionException e) {
+			logger.info("Exception !!!");
+			logger.error(e.getMessage());
+			e.printStackTrace();
+		}
 	}
 
 	@Override

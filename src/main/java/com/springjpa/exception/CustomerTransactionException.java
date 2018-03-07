@@ -7,5 +7,5 @@ public class CustomerTransactionException extends Exception {
     public CustomerTransactionException(String message) {
         super(message);
     }
- 
+
 }
