@@ -10,9 +10,12 @@ import org.hibernate.SessionFactory;
 import org.hibernate.jpa.HibernateEntityManagerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Repository;
 
 import com.springjpa.model.Customer;
+import com.springjpa.services.CustomerServiceImpl;
+import com.springjpa.util.HibernateUtil;
 
 @Repository("customerDao")
 public class CustomerDaoImpl implements ICustomerDao {
@@ -26,13 +29,20 @@ public class CustomerDaoImpl implements ICustomerDao {
 	
 	@Override
 	public void initData(Customer customer) {
-		Session session = sessionFactory.openSession();
-        session.beginTransaction();
-     
-        session.save(customer);
-     
-        session.getTransaction().commit();
-        session.close();
+		Session session = HibernateUtil.getSessionFactory().openSession();
+
+		  session.beginTransaction();
+
+		  session.save(customer);
+		  session.getTransaction().commit();
+		  
+//		Session session = sessionFactory.openSession();
+//        session.beginTransaction();
+//     
+//        session.save(customer);
+//     
+//        session.getTransaction().commit();
+//        session.close();
 	}
 	
 	@Override
@@ -49,6 +59,33 @@ public class CustomerDaoImpl implements ICustomerDao {
      
         session.getTransaction().commit();
         session.close();
+        
+        
+        
+        
+//        ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("classpath:/spring.xml");
+//		
+//		//Get service from context. (service's dependency (ProductDAO) is autowired in ProductService)
+//        CustomerServiceImpl productService = ctx.getBean(CustomerServiceImpl.class);
+//		
+//		//Do some data operation
+//		
+//		productService.add(new Customer(1, "Bulb", "aaas"));
+//		productService.add(new Customer(2, "Dijone mustard"));
+//		
+//		System.out.println("listAll: " + productService.listAll());
+//		
+//		//Test transaction rollback (duplicated key)
+//		
+//		try {
+//			productService.addAll(Arrays.asList(new Product(3, "Book"), new Product(4, "Soap"), new Product(1, "Computer")));
+//		} catch (DataAccessException dataAccessException) {
+//		}
+//		
+//		//Test element list after rollback
+//		System.out.println("listAll: " + productService.listAll());
+//		
+//		ctx.close();
 	}
 
 	@Override

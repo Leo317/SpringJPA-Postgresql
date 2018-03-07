@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+ <session-factory>
+  <!--使用資料庫 相關設定 -->
+  <property name="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</property>
+  <property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
+  <!--連線資料 (url)、帳號(username)及密碼(password) -->
+  <property name="hibernate.connection.url">jdbc:postgresql://127.0.0.1:5432/test</property>
+  <property name="hibernate.connection.username">postgres</property>
+  <property name="hibernate.connection.password">111111</property>
+  <!-- hibernate 相關效能設定 -->
+  <property name="hibernate.bytecode.use_reflection_optimizer">false</property>
+  <property name="connection_pool_size">1</property>
+
+  <!-- validate | update | create | create-drop 如果沒要用 set value="none". -->
+  <!-- 
+   validate 程式執行驗證資料對應表相關資料。
+   update   如果table已存在，就更新，不存在則新增 
+   create   每次執行就自動刪除所有對應的table，再新增所有對應的table 
+   create-drop 新增所有對應的table , 程式關閉前刪除所有對應的table 
+  -->
+  <property name="hbm2ddl.auto">update</property>
+  <!-- 是否顯示所有執行的sql -->
+  <property name="show_sql">true</property>
+  <!-- 對應資料表 -->
+  <mapping class="com.springjpa.model.Customer"></mapping>
+ </session-factory>
+</hibernate-configuration>
