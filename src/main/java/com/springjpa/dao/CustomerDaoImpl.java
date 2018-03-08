@@ -30,12 +30,13 @@ public class CustomerDaoImpl implements ICustomerDao {
 	
 	@Override
 	public void initData(Customer customer) {
-		Session session = HibernateUtil.getSessionFactory().openSession();
-
-		  session.beginTransaction();
-
-		  session.save(customer);
-		  session.getTransaction().commit();
+		this.sessionFactory.getCurrentSession().save(customer);
+//		Session session = HibernateUtil.getSessionFactory().openSession();
+//
+//		  session.beginTransaction();
+//
+//		  session.save(customer);
+//		  session.getTransaction().commit();
 		  
 //		Session session = sessionFactory.openSession();
 //        session.beginTransaction();
