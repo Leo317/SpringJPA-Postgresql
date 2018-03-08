@@ -12,7 +12,7 @@ import com.springjpa.exception.CustomerTransactionException;
 import com.springjpa.model.Customer;
 
 @Service("customerService")
-@Transactional(propagation = Propagation.REQUIRED, readOnly = false, rollbackFor = CustomerTransactionException.class)
+@Transactional(rollbackFor = CustomerTransactionException.class)
 public class CustomerServiceImpl implements ICustomerService {
 	
 	private final static Logger logger = LoggerFactory.getLogger(CustomerServiceImpl.class);
@@ -46,14 +46,9 @@ public class CustomerServiceImpl implements ICustomerService {
 	}
 
 	@Override
-	@Transactional(rollbackFor=CustomerTransactionException.class)
-	public void delete(long id) throws CustomerTransactionException {
+	public void delete(long id) {
 		// TODO Auto-generated method stub
 		customerDao.delete(id);
-		if (id % 2 == 0)
-			throw new CustomerTransactionException("id % 2 == 0");
-			
-		
 	}
 
 	@Override
