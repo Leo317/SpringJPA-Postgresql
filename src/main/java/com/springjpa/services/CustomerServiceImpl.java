@@ -17,8 +17,8 @@ public class CustomerServiceImpl implements ICustomerService {
 	
 	private final static Logger logger = LoggerFactory.getLogger(CustomerServiceImpl.class);
 	
-	@Autowired
-    SessionFactory sessionFactory;
+//	@Autowired
+//    SessionFactory sessionFactory;
 	
 	@Autowired
 	private CustomerDaoImpl customerDao;
@@ -27,9 +27,9 @@ public class CustomerServiceImpl implements ICustomerService {
 	public void initData(Customer customer) {
 		logger.info("Init Data = " + customer);
 		customerDao.initData(customer);
-		sessionFactory.getCurrentSession().getTransaction().commit();
-		
-		sessionFactory.getCurrentSession().close();
+//		sessionFactory.getCurrentSession().getTransaction().commit();
+//		
+//		sessionFactory.getCurrentSession().close();
 	}
 	
 	@Override
@@ -46,9 +46,9 @@ public class CustomerServiceImpl implements ICustomerService {
 		customerDao.creat(new Customer(555, "DDD", "AAA"));
 		customerDao.creat(new Customer(555, "EEE", "AAA"));
 		
-		sessionFactory.getCurrentSession().getTransaction().commit();
-		
-		sessionFactory.getCurrentSession().close();
+//		sessionFactory.getCurrentSession().getTransaction().commit();
+//		
+//		sessionFactory.getCurrentSession().close();
 	}
 
 	@Override
