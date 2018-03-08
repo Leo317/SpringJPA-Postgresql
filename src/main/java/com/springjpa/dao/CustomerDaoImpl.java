@@ -31,29 +31,15 @@ public class CustomerDaoImpl implements ICustomerDao {
 	@Override
 	public void initData(Customer customer) {
 		this.sessionFactory.getCurrentSession().save(customer);
-//		Session session = HibernateUtil.getSessionFactory().openSession();
-//
-//		  session.beginTransaction();
-//
-//		  session.save(customer);
-//		  session.getTransaction().commit();
-		  
-//		Session session = sessionFactory.openSession();
-//        session.beginTransaction();
-//     
-//        session.save(customer);
-//     
-//        session.getTransaction().commit();
-//        session.close();
 	}
 	
 	@Override
 	public void creat(Customer customer) {
-		Customer temp = new Customer();
-		temp.setPhone(customer.getPhone());
-		temp.setFirstName(customer.getFirstName());
-		temp.setLastName(customer.getLastName());
-		this.sessionFactory.getCurrentSession().save(temp);
+//		Customer temp = new Customer();
+//		temp.setPhone(customer.getPhone());
+//		temp.setFirstName(customer.getFirstName());
+//		temp.setLastName(customer.getLastName());
+		this.sessionFactory.getCurrentSession().save(customer);
 	}
 
 	@Override
@@ -111,20 +97,6 @@ public class CustomerDaoImpl implements ICustomerDao {
 		} else {
 			System.out.println("No Parameter Update!!!");
 		}
-//		Customer result = new Customer();
-//		result.setId(id);
-//		result.setPhone(customer.getPhone());
-//		result.setFirstName(customer.getFirstName());
-//		result.setLastName(customer.getLastName());
-//		
-//		System.out.println(result);
-//		Session session = sessionFactory.openSession();
-//        session.beginTransaction();
-//     
-//        session.update(result);
-//     
-//        session.getTransaction().commit();
-//        session.close();
 	}
 
 	@Override
@@ -141,18 +113,8 @@ public class CustomerDaoImpl implements ICustomerDao {
 	      Customer result = new Customer();
 	      result = (Customer)session.load(Customer.class,id);
 	      session.delete(result);
-		System.out.println("acsacasc");
-		System.out.println(sessionFactory.openSession());
-		System.out.println(sessionFactory.getCurrentSession());
-//		Session session = sessionFactory.openSession();
-//        session.beginTransaction();
-//        
-//        Customer result = new Customer();
-//        result = (Customer)session.load(Customer.class,id);
-//        session.delete(result);
-//        
-//        session.getTransaction().commit();
-//        session.close();
+
+		this.sessionFactory.getCurrentSession().delete(result);
 	}
 	
 	@Override
