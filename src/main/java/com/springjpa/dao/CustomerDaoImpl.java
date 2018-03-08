@@ -52,41 +52,7 @@ public class CustomerDaoImpl implements ICustomerDao {
 		temp.setPhone(customer.getPhone());
 		temp.setFirstName(customer.getFirstName());
 		temp.setLastName(customer.getLastName());
-		
-		Session session = sessionFactory.openSession();
-        session.beginTransaction();
-     
-        session.save(temp);
-     
-        session.getTransaction().commit();
-        session.close();
-        
-        
-        
-        
-//        ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("classpath:/spring.xml");
-//		
-//		//Get service from context. (service's dependency (ProductDAO) is autowired in ProductService)
-//        CustomerServiceImpl productService = ctx.getBean(CustomerServiceImpl.class);
-//		
-//		//Do some data operation
-//		
-//		productService.add(new Customer(1, "Bulb", "aaas"));
-//		productService.add(new Customer(2, "Dijone mustard"));
-//		
-//		System.out.println("listAll: " + productService.listAll());
-//		
-//		//Test transaction rollback (duplicated key)
-//		
-//		try {
-//			productService.addAll(Arrays.asList(new Product(3, "Book"), new Product(4, "Soap"), new Product(1, "Computer")));
-//		} catch (DataAccessException dataAccessException) {
-//		}
-//		
-//		//Test element list after rollback
-//		System.out.println("listAll: " + productService.listAll());
-//		
-//		ctx.close();
+		this.sessionFactory.getCurrentSession().save(temp);
 	}
 
 	@Override
