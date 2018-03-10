@@ -3,7 +3,11 @@ package com.springjpa.services;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.aspectj.lang.JoinPoint;
+import org.aspectj.lang.ProceedingJoinPoint;
+import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.AfterReturning;
+import org.aspectj.lang.annotation.AfterThrowing;
+import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
@@ -15,14 +19,6 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Arrays;
 
-/**
- * Web层日志切面
- *
- * @author 程序猿DD
- * @version 1.0.0
- * @date 16/5/17 上午10:42.
- * @blog http://blog.didispace.com
- */
 @Aspect
 @Order(5)
 @Component
@@ -44,21 +40,64 @@ public class WebLogAspect {
         HttpServletRequest request = attributes.getRequest();
 
         // 记录下请求内容
+        logger.info("1111111111111111111111 doBefore() is running!");
         logger.info("URL : " + request.getRequestURL().toString());
         logger.info("HTTP_METHOD : " + request.getMethod());
         logger.info("IP : " + request.getRemoteAddr());
         logger.info("CLASS_METHOD : " + joinPoint.getSignature().getDeclaringTypeName() + "." + joinPoint.getSignature().getName());
         logger.info("ARGS : " + Arrays.toString(joinPoint.getArgs()));
-
+        
+        logger.info("hijacked : " + joinPoint.getSignature().getName());
+        logger.info("******");
     }
+    
+    @After("webLog()")
+	public void logAfter(JoinPoint joinPoint) {
+
+		logger.info("2222222222222222222222 logAfter() is running!");
+		logger.info("hijacked : " + joinPoint.getSignature().getName());
+		logger.info("******");
+
+	}
 
     @AfterReturning(returning = "ret", pointcut = "webLog()")
-    public void doAfterReturning(Object ret) throws Throwable {
+    public void doAfterReturning(JoinPoint joinPoint, Object ret) throws Throwable {
         // 处理完请求，返回内容
+    	logger.info("3333333333333333333333 doAfterReturning() is running!");
         logger.info("RESPONSE : " + ret);
         logger.info("SPEND TIME : " + (System.currentTimeMillis() - startTime.get()));
+        
+		logger.info("hijacked : " + joinPoint.getSignature().getName());
+		logger.info("Method returned value is : " + ret);
+		logger.info("******");
     }
+	
+	
+	@AfterThrowing(pointcut = "webLog()", throwing= "error")
+	public void logAfterThrowing(JoinPoint joinPoint, Throwable error) {
 
+		logger.info("444444444444444444444 logAfterThrowing() is running!");
+		logger.info("hijacked : " + joinPoint.getSignature().getName());
+		logger.info("Exception : " + error);
+		logger.info("******");
 
+	}
+	
+	
+	@Around("execution(* com.springjpa.controller..*.*(..))")
+	public void logAround(ProceedingJoinPoint joinPoint) throws Throwable {
+
+		logger.info("55555555555555555555 logAround() is running!");
+		logger.info("hijacked method : " + joinPoint.getSignature().getName());
+		logger.info("hijacked arguments : " + Arrays.toString(joinPoint.getArgs()));
+		
+		logger.info("Around before is running!");
+		joinPoint.proceed();
+		logger.info("55555555555555555555 Around after is running!");
+		
+		logger.info("******");
+
+	}
+	
 }
 
