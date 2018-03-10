@@ -42,6 +42,7 @@ public class WebController {
 	public ResponseEntity creat(@RequestBody Customer customer) throws CustomerTransactionException{
 		try {
 			iCustomerServ.creat(customer);
+			System.out.println("Creat successfully");
 	      } catch (CustomerTransactionException e) {
 	          e.printStackTrace();
 	      }
