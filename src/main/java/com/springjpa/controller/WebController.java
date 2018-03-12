@@ -26,6 +26,21 @@ public class WebController {
 	@Autowired
     ICustomerService iCustomerServ;
 	
+	@RequestMapping(value = "svc/v1/public/accounts/{accountNumber}")
+	public String getPublicAccountDataLinkedTo(@PathVariable final int accountNumber) {
+		return "Public Account Linked To: " + accountNumber;
+	}
+	
+	@RequestMapping(value = "svc/v1/private/accounts/{accountNumber}")
+	public String getPrivateAccountDataLinkedTo(@PathVariable final int accountNumber) {
+		return "Private Account Linked To: " + accountNumber;
+	}
+	
+	@RequestMapping(value = "svc/v1/private/admin/accounts/{accountNumber}")
+	public String getExtraPrivateAccountDataLinkedTo(@PathVariable final int accountNumber) {
+		return "Private Extra Account Linked To: " + accountNumber;
+	}
+	
 	@RequestMapping("/save")
 	public String process(){
 		// save a single Customer

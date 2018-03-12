@@ -78,6 +78,12 @@
 			<artifactId>aspectjweaver</artifactId>
 			<version>1.6.11</version>
 		</dependency>
+		<!-- Security -->
+		<dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+        
 	</dependencies>
 
 	<build>
