@@ -51,7 +51,7 @@ public class WebLogAspect {
         logger.info("******");
     }
     
-    @After("webLog()")
+    @After("execution(* com.springjpa.controller..*.*(..))")
 	public void logAfter(JoinPoint joinPoint) {
 
 		logger.info("2222222222222222222222 logAfter() is running!");
@@ -83,7 +83,7 @@ public class WebLogAspect {
 	}
 	
     /*
-	@Around("execution(* com.springjpa.controller..*.*(..))")
+	@Around("webLog()")
 	public void logAround(ProceedingJoinPoint joinPoint) throws Throwable {
 
 		logger.info("55555555555555555555 logAround() is running!");
