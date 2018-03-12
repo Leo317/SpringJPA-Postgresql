@@ -71,8 +71,7 @@ public class WebLogAspect {
 		logger.info("Method returned value is : " + ret);
 		logger.info("******");
     }
-	
-	
+
 	@AfterThrowing(pointcut = "webLog()", throwing= "error")
 	public void logAfterThrowing(JoinPoint joinPoint, Throwable error) {
 
@@ -83,7 +82,7 @@ public class WebLogAspect {
 
 	}
 	
-	
+    /*
 	@Around("execution(* com.springjpa.controller..*.*(..))")
 	public void logAround(ProceedingJoinPoint joinPoint) throws Throwable {
 
@@ -98,6 +97,6 @@ public class WebLogAspect {
 		logger.info("******");
 
 	}
-	
+	*/
 }
 

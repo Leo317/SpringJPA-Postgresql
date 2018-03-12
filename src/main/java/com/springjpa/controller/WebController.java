@@ -28,16 +28,19 @@ public class WebController {
 	
 	@RequestMapping(value = "svc/v1/public/accounts/{accountNumber}")
 	public String getPublicAccountDataLinkedTo(@PathVariable final int accountNumber) {
+		System.out.println("Public");
 		return "Public Account Linked To: " + accountNumber;
 	}
 	
 	@RequestMapping(value = "svc/v1/private/accounts/{accountNumber}")
 	public String getPrivateAccountDataLinkedTo(@PathVariable final int accountNumber) {
+		System.out.println("Private");
 		return "Private Account Linked To: " + accountNumber;
 	}
 	
 	@RequestMapping(value = "svc/v1/private/admin/accounts/{accountNumber}")
 	public String getExtraPrivateAccountDataLinkedTo(@PathVariable final int accountNumber) {
+		System.out.println("Extra");
 		return "Private Extra Account Linked To: " + accountNumber;
 	}
 	
