@@ -17,11 +17,6 @@ public class CustomerTransactionException extends Exception {
     
     public void DeleteTransactionException() {
     	System.out.println("DELETE");
-    	Session session = sessionFactory.getCurrentSession();
-		Transaction tx = null;
-		   tx = session.beginTransaction();
-			System.out.println("EXXXXX");
-		   if (tx!=null) tx.rollback();
-		   session.close();
+    	
     }
 }
