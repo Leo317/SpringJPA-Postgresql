@@ -42,14 +42,9 @@ public class CustomerServiceImpl implements ICustomerService {
 	}
 
 	@Override
+	@Transactional
 	public void update(Customer customer) {
 		customerDao.update(customer);
-	}
-
-	@Override
-	public Customer edit(long id) {
-		// TODO Auto-generated method stub
-		return customerDao.edit(id);
 	}
 
 	@Override
@@ -71,4 +66,9 @@ public class CustomerServiceImpl implements ICustomerService {
 		return customerDao.getAll();
 	}
 	
+	@Override
+	public Customer edit(long id) {
+		// TODO Auto-generated method stub
+		return customerDao.edit(id);
+	}
 }

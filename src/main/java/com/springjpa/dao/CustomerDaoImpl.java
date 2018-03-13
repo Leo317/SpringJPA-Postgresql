@@ -30,10 +30,6 @@ public class CustomerDaoImpl implements ICustomerDao {
 	
 	@Override
 	public void creat(Customer customer) {
-//		Customer temp = new Customer();
-//		temp.setPhone(customer.getPhone());
-//		temp.setFirstName(customer.getFirstName());
-//		temp.setLastName(customer.getLastName());
 		this.sessionFactory.getCurrentSession().save(customer);
 	}
 
