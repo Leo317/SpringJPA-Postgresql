@@ -1,7 +1,5 @@
 package com.springjpa;
 
-import java.util.Arrays;
-
 import org.hibernate.SessionFactory;
 import org.hibernate.jpa.HibernateEntityManagerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,8 +9,6 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceTransactionManagerAutoConfiguration;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.springframework.dao.DataAccessException;
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
 
 import com.springjpa.model.Customer;
@@ -47,7 +43,6 @@ public class SpringJpaPostgreSqlApplication implements CommandLineRunner{
 	    return hemf.getSessionFactory();    
 	}
 	
-
 	@Autowired
     @Bean(name = "transactionManager")
     public HibernateTransactionManager getTransactionManager(SessionFactory sessionFactory) {

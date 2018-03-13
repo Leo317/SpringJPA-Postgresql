@@ -30,7 +30,7 @@ public class WebLogAspect {
 
     @Pointcut("execution(public * com.springjpa.controller..*.*(..))")
     public void webLog(){}
-
+    
     @Before("webLog()")
     public void doBefore(JoinPoint joinPoint) throws Throwable {
         startTime.set(System.currentTimeMillis());
@@ -82,7 +82,7 @@ public class WebLogAspect {
 
 	}
 	
-    /*
+	/*
 	@Around("webLog()")
 	public void logAround(ProceedingJoinPoint joinPoint) throws Throwable {
 

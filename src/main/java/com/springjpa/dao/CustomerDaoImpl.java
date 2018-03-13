@@ -7,15 +7,10 @@ import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.jpa.HibernateEntityManagerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Repository;
 
 import com.springjpa.model.Customer;
-import com.springjpa.services.CustomerServiceImpl;
-import com.springjpa.util.HibernateUtil;
 
 @Repository("customerDao")
 public class CustomerDaoImpl implements ICustomerDao {

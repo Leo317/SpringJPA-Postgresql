@@ -46,6 +46,7 @@ public class WebController {
 	
 	@RequestMapping("/save")
 	public String process(){
+		System.out.println("save");
 		// save a single Customer
 //		repository.save(new Customer(1111, "Jack", "Smith"));
 //		
