@@ -41,50 +41,20 @@ public class CustomerDaoImpl implements ICustomerDao {
 			hasParam = true;
 		
 		if (hasParam) {
-			
-			Session session = sessionFactory.openSession();
-			session.beginTransaction();
+			Session session = sessionFactory.getCurrentSession();
 
-			String HQL = "update customer set ";
-			if (customer.getPhone() != 0) {
-				HQL += "phone=:phone ";
-				hasFirstParam = true;
-			}
-			if (customer.getFirstName() != null && hasFirstParam)
-				HQL += ",firstname=:firstname ";
-			else if (customer.getFirstName() != null) {
-				HQL += "firstname=:firstname ";
-				hasFirstParam = true;
-			}
-			if (customer.getLastName() != null && hasFirstParam)
-				HQL += ",lastname=:lastname ";
-			else if (customer.getLastName() != null) {
-				HQL += "lastname=:lastname ";
-				hasFirstParam = true;
-			}
+			Customer result = new Customer();
 			
-			HQL += "where id=:id";
-			System.out.println(HQL);
-			Query query = session.createQuery(HQL);
+			result.setId(customer.getId());
+			
 			if (customer.getPhone() != 0)
-				query.setParameter("phone", customer.getPhone());
+				result.setPhone(customer.getPhone());
 			if (customer.getFirstName() != null)
-				query.setParameter("firstname", customer.getFirstName());
+				result.setFirstName(customer.getFirstName());
 			if (customer.getLastName() != null)
-				query.setParameter("lastname", customer.getLastName());
-			query.setParameter("id", customer.getId());
+				result.setLastName(customer.getLastName());
 			
-			try {
-				int executeUpdate = query.executeUpdate();
-				if (executeUpdate > 0)
-					System.out.println("Update Successfully!!!");
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			
-			session.getTransaction().commit();
-			session.close();
-		
+			this.sessionFactory.getCurrentSession().update(result);
 		} else {
 			System.out.println("No Parameter Update!!!");
 		}
