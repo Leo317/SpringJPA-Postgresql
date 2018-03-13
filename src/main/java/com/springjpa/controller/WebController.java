@@ -59,14 +59,14 @@ public class WebController {
 	
 	@PostMapping(value = "/creat")
 	public ResponseEntity creat(@RequestBody Customer customer) throws CustomerTransactionException{
-		try {
-			iCustomerServ.creat(customer);
-			System.out.println("Creat successfully");
-	      } catch (CustomerTransactionException e) {
-	          e.printStackTrace();
-	      }
+//		try {
+//			iCustomerServ.creat(customer);
+//			System.out.println("Creat successfully");
+//	      } catch (CustomerTransactionException e) {
+//	          e.printStackTrace();
+//	      }
 		
-        
+		iCustomerServ.creat(customer);
 		return new ResponseEntity(customer, HttpStatus.OK);
 	}
 	
