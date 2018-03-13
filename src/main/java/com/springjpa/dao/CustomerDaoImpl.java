@@ -103,12 +103,8 @@ public class CustomerDaoImpl implements ICustomerDao {
 	@Override
 	public void delete(long id) {
 		Session session = sessionFactory.getCurrentSession();
-	      session.beginTransaction();
-	      
-	      Customer result = new Customer();
-	      result = (Customer)session.load(Customer.class,id);
-	      session.delete(result);
-
+	    Customer result = new Customer();
+	    result = (Customer)session.load(Customer.class,id);
 		this.sessionFactory.getCurrentSession().delete(result);
 	}
 	

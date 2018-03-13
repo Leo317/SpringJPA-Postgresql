@@ -21,10 +21,43 @@ import com.springjpa.services.ICustomerService;
 @RestController
 public class WebController {
 	
-	private final static Logger logger = LoggerFactory.getLogger(CustomerServiceImpl.class);
-	
 	@Autowired
     ICustomerService iCustomerServ;
+	
+	@PostMapping(value = "/creat")
+	public ResponseEntity creat(@RequestBody Customer customer) throws CustomerTransactionException{
+		iCustomerServ.creat(customer);
+		return new ResponseEntity(customer, HttpStatus.OK);
+	}
+	
+	
+	
+	@PutMapping("/customers/{id}")
+	public ResponseEntity update(@PathVariable Long id, @RequestBody Customer customer) {
+		customer.setId(id);
+		iCustomerServ.update(customer);
+		
+		return new ResponseEntity(customer, HttpStatus.OK);
+	}
+
+	@DeleteMapping("/customers/{id}")
+	public String delete(@PathVariable Long id) {
+		try {
+			iCustomerServ.delete(id);
+		} catch (CustomerTransactionException e) {
+			e.DeleteTransactionException();
+		}
+		return "Delete Id = " + id;
+	}
+	
+	
+	
+	@RequestMapping("/findall")
+	public String getAll(){
+		return iCustomerServ.getAll();
+	}
+	
+	
 	
 	@RequestMapping(value = "svc/v1/public/accounts/{accountNumber}")
 	public String getPublicAccountDataLinkedTo(@PathVariable final int accountNumber) {
@@ -47,106 +80,7 @@ public class WebController {
 	@RequestMapping("/save")
 	public String process(){
 		System.out.println("save");
-		// save a single Customer
-//		repository.save(new Customer(1111, "Jack", "Smith"));
-//		
-//		// save a list of Customers
-//		repository.save(Arrays.asList(new Customer(2222, "Adam", "Johnson"), new Customer(3333, "Kim", "Smith"),
-//										new Customer(4444, "David", "Williams"), new Customer(5555, "Peter", "Davis")));
-		
 		return "Done";
 	}
-	
-	@PostMapping(value = "/creat")
-	public ResponseEntity creat(@RequestBody Customer customer) throws CustomerTransactionException{
-//		try {
-//			iCustomerServ.creat(customer);
-//			System.out.println("Creat successfully");
-//	      } catch (CustomerTransactionException e) {
-//	          e.printStackTrace();
-//	      }
-		
-		iCustomerServ.creat(customer);
-		return new ResponseEntity(customer, HttpStatus.OK);
-	}
-	
-	@PutMapping("/customers/{id}")
-	public ResponseEntity update(@PathVariable Long id, @RequestBody Customer customer) {
-		customer.setId(id);
-		iCustomerServ.update(customer);
-		
-		return new ResponseEntity(customer, HttpStatus.OK);
-	}
-
-	@DeleteMapping("/customers/{id}")
-	public String delete(@PathVariable Long id) {
-		
-		try {
-			iCustomerServ.delete(id);
-		} catch (CustomerTransactionException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		return "Delete Id = " + id;
-	}
-
-	@RequestMapping("/findall")
-	public String getAll(){
-//		String result = "";
-//		
-//		for(Customer cust : repository.findAll()){
-//			result += cust.toString() + "<br>";
-//		}
-//		
-//		return result;
-		return iCustomerServ.getAll();
-	}
-	
-//	@RequestMapping("/findbyid")
-//	public Customer findById(@RequestParam("id") long id){
-////		String result = "";
-////		result = repository.findOne(id).toString();
-////		return result;
-//		Session session = sessionFactory.openSession();
-//
-//        Customer customer = session.get(Customer.class, id);
-//     
-//        session.close();
-//        return customer;
-//	}
-//	
-//	@RequestMapping("/findbyphone")
-//	public String fetchDataByPhone(@RequestParam("phone") long phone){
-//		String result = "";
-//		
-//		for(Customer cust: repository.findByPhone(phone)){
-//			result += cust.toString() + "<br>"; 
-//		}
-//		
-//		return result;
-//	}
-//	
-//	@RequestMapping("/findbyfirstname")
-//	public String fetchDataByFirstName(@RequestParam("firstname") String firstname){
-//		String result = "";
-//		
-//		for(Customer cust: repository.findByFirstName(firstname)){
-//			result += cust.toString() + "<br>"; 
-//		}
-//		
-//		return result;
-//	}
-//	
-//	@RequestMapping("/findbylastname")
-//	public String fetchDataByLastName(@RequestParam("lastname") String lastName){
-//		String result = "";
-//		
-//		for(Customer cust: repository.findByLastName(lastName)){
-//			result += cust.toString() + "<br>"; 
-//		}
-//		
-//		return result;
-//	}
 }
 

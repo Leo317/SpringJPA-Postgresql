@@ -53,6 +53,7 @@ public class CustomerServiceImpl implements ICustomerService {
 	}
 
 	@Override
+	@Transactional
 	public void delete(long id) {
 		// TODO Auto-generated method stub
 		customerDao.delete(id);
