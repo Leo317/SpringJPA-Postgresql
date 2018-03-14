@@ -39,16 +39,17 @@ public class CustomerServiceTest {
 	}
 	
 	@Test
+	public void testInitData() {
+		Customer toDo = new Customer(8, "Todo Sample 8", "aaa");
+		toDoService.initData(toDo);
+        verify(textDoubleDao, times(1)).initData(toDo);
+	}
+	
+	@Test
 	public void testCreat() {
-		Customer toDo = new Customer(666, "unit", "test");
-		when(textDoubleDao.find(1L)).thenReturn(toDo);
-		
-		Customer result = textDoubleDao.find(1);
-		
-		assertEquals(0, result.getId());
-		assertEquals(666, result.getPhone());
-	    assertThat(result.getFirstName(), is("unit"));
-	    assertThat(result.getLastName(), is("test"));
+		Customer toDo = new Customer(8, "Todo Sample 8", "aaa");
+		toDoService.creat(toDo);
+        verify(textDoubleDao, times(1)).creat(toDo);
 	}
 	
 	@Test
@@ -102,13 +103,10 @@ public class CustomerServiceTest {
 	
 	@Test
 	public void testGetAll() {
-		Customer toDo = new Customer(666, "unit", "test");
-
-		when(textDoubleDao.find(1L)).thenReturn(toDo);
-		Customer result = toDoService.find(1);
-		assertEquals(666, result.getPhone());
-		assertEquals("unit", result.getFirstName());
-		assertEquals("test", result.getLastName());
+		when(textDoubleDao.getAll()).thenReturn(new Customer(666, "unit", "test").toString() + "<br>");
+		String result = toDoService.getAll();
+		
+		assertThat(result, is(new Customer(666, "unit", "test").toString() + "<br>"));
 	}
 	
 	/*

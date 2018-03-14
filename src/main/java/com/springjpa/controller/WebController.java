@@ -27,7 +27,7 @@ public class WebController {
     ICustomerService iCustomerServ;
 	
 	@PostMapping(value = "/creat")
-	public ResponseEntity creat(@RequestBody Customer customer) throws CustomerTransactionException{
+	public ResponseEntity creat(@RequestBody Customer customer) {
 		iCustomerServ.creat(customer);
 		return new ResponseEntity(customer, HttpStatus.OK);
 	}
@@ -52,11 +52,7 @@ public class WebController {
 
 	@DeleteMapping("/customers/{id}")
 	public String delete(@PathVariable Long id) {
-		try {
-			iCustomerServ.delete(id);
-		} catch (CustomerTransactionException e) {
-			e.DeleteTransactionException();
-		}
+		iCustomerServ.delete(id);
 		return "Delete Id = " + id;
 	}
 	
