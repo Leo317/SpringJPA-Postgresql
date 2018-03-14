@@ -1,5 +1,7 @@
 package com.springjpa.controller;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +32,15 @@ public class WebController {
 		return new ResponseEntity(customer, HttpStatus.OK);
 	}
 	
+	@RequestMapping("/find/{id}")
+	public Customer find(@PathVariable long id){
+		return iCustomerServ.find((Long) id);
+	}
 	
+	@RequestMapping("/findalls")
+	public List<Customer> findAll(){
+		return iCustomerServ.findAll();
+	}
 	
 	@PutMapping("/customers/{id}")
 	public ResponseEntity update(@PathVariable Long id, @RequestBody Customer customer) {

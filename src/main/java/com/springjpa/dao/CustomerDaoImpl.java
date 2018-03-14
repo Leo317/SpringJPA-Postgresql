@@ -32,17 +32,28 @@ public class CustomerDaoImpl implements ICustomerDao {
 	public void creat(Customer customer) {
 		this.sessionFactory.getCurrentSession().save(customer);
 	}
+	
+	@Override
+	public Customer find(long id) {
+//		return (Customer) this.sessionFactory.getCurrentSession().get(Customer.class, id);
+		System.out.println("Find Id DAO");
+		return (Customer) this.sessionFactory.getCurrentSession().createQuery(
+				"from customer c where c.id = :id").setLong("id", id).uniqueResult();
+	}
+	
+	@Override
+	public List<Customer> findAll() {
+		System.out.println("Findall DAO");
+		return this.sessionFactory.getCurrentSession().createQuery("from customer").list();
+	}
 
 	@Override
 	public void update(Customer customer) {
-//		System.out.println(customer);
-		boolean hasParam = false, hasFirstParam = false;
+		boolean hasParam = false;
 		if (customer.getPhone() != 0 || customer.getFirstName() != null || customer.getLastName() != null) 
 			hasParam = true;
 		
 		if (hasParam) {
-			Session session = sessionFactory.getCurrentSession();
-
 			Customer result = new Customer();
 			
 			result.setId(customer.getId());
@@ -72,11 +83,6 @@ public class CustomerDaoImpl implements ICustomerDao {
 	    Customer result = new Customer();
 	    result = (Customer)session.load(Customer.class,id);
 		this.sessionFactory.getCurrentSession().delete(result);
-	}
-	
-	@Override
-	public Customer find(long id) {
-		return (Customer)currentSession().get(Customer.class, id);
 	}
 
 	@Override
