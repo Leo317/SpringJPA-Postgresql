@@ -75,9 +75,4 @@ public class CustomerServiceImpl implements ICustomerService {
 		return customerDao.getAll();
 	}
 	
-	@Override
-	public Customer edit(long id) {
-		// TODO Auto-generated method stub
-		return customerDao.edit(id);
-	}
 }

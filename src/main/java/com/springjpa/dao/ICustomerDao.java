@@ -14,6 +14,5 @@ public interface ICustomerDao {
 	public void update(Customer customer);
 	public void delete(long id);
 	
-	public Customer edit(long id);
 	public String getAll();
 }

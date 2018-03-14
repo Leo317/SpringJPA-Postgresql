@@ -70,13 +70,7 @@ public class CustomerDaoImpl implements ICustomerDao {
 			System.out.println("No Parameter Update!!!");
 		}
 	}
-
-	@Override
-	public Customer edit(long id) {
-		// TODO Auto-generated method stub
-		return find(id);
-	}
-
+	
 	@Override
 	public void delete(long id) {
 		Session session = sessionFactory.getCurrentSession();
